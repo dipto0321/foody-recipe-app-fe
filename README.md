@@ -1,6 +1,38 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ?? foody-recipe-app-fe ??
 
-## Available Scripts
+![foody_recipe_app_banner](foody_recipe_app_banner.png)
+
+[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+TODO: Put more badges here.
+
+A simple food recipe listing directory. The food you love.
+
+## Table of Contents
+
+- [?? foody-recipe-app-fe ??](#%f0%9f%8d%94-foody-recipe-app-fe-%f0%9f%8d%94)
+  - [Table of Contents](#table-of-contents)
+  - [Background](#background)
+  - [Install](#install)
+  - [Usage](#usage)
+    - [`yarn start`](#yarn-start)
+    - [`yarn test`](#yarn-test)
+    - [`yarn build`](#yarn-build)
+  - [API](#api)
+  - [Maintainers](#maintainers)
+  - [Contributing](#contributing)
+  - [License](#license)
+
+## Background
+
+## Install
+
+In the project directory, run:
+
+```
+yarn install
+```
+
+## Usage
 
 In the project directory, you can run:
 
@@ -27,18 +59,20 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## API
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Check [foody-recipe-app-api](https://github.com/dipto0321/foody-recipe-app-api) to learn more about the API
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Maintainers
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+[@dipto0321](https://github.com/dipto0321)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Contributing
 
-## Learn More
+See [the contributing file](contributing.md)!
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+PRs accepted.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
+
+MIT © 2020 Dipto Karmakar

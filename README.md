@@ -3,7 +3,12 @@
 ![foody_recipe_app_banner](foody_recipe_app_banner.png)
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-TODO: Put more badges here.
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1fab89e6-ba10-4b3d-97c3-a4d36322c351/deploy-status)](https://app.netlify.com/sites/foody-recipe-app/deploys)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/dipto0321/foody-recipe-app-fe/react)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/dipto0321/foody-recipe-app-fe/typescript)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/dipto0321/foody-recipe-app-fe/formik)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/dipto0321/foody-recipe-app-fe)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/dipto0321/foody-recipe-app-fe/master)
 
 A simple food recipe listing directory. The food you love.
 

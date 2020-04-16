@@ -1,4 +1,4 @@
-# ?? foody-recipe-app-fe ??
+# foody-recipe-app-fe
 
 ![foody_recipe_app_banner](foody_recipe_app_banner.png)
 
@@ -9,7 +9,7 @@ A simple food recipe listing directory. The food you love.
 
 ## Table of Contents
 
-- [?? foody-recipe-app-fe ??](#%f0%9f%8d%94-foody-recipe-app-fe-%f0%9f%8d%94)
+- [foody-recipe-app-fe](#foody-recipe-app-fe)
   - [Table of Contents](#table-of-contents)
   - [Background](#background)
   - [Install](#install)

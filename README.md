@@ -9,6 +9,7 @@
 ![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/dipto0321/foody-recipe-app-fe/formik)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/dipto0321/foody-recipe-app-fe)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/dipto0321/foody-recipe-app-fe/master)
+![GitHub](https://img.shields.io/github/license/dipto0321/foody-recipe-app-fe)
 
 A simple food recipe listing directory. The food you love.
 

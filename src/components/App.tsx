@@ -1,10 +1,13 @@
 import React from 'react';
+import { ThemeProvider, CSSReset } from '@chakra-ui/core';
+import Navbar from './Navbar';
 
 const App = () => {
   return (
-    <div>
-      <h1>Foody Recipe API</h1>
-    </div>
+    <ThemeProvider>
+      <CSSReset />
+      <Navbar />
+    </ThemeProvider>
   );
 };
 

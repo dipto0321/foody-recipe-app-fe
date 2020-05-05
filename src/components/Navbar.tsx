@@ -1,29 +1,40 @@
 import React from 'react';
 import { Box, Flex, Text } from '@chakra-ui/core';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Navlink from './Navlink';
+import Signup from './Signup';
+import Signin from './Signin';
 
-const menus = ['Home', 'About', 'Sign-in', 'Sign-up'];
+const menus = ['Sign-in', 'Sign-up'];
 
 const Navbar = () => (
-  <Flex
-    bg="tomato"
-    w="100%"
-    px={5}
-    py={4}
-    justifyContent="space-between"
-    alignItems="center"
-  >
-    <Flex flexDirection="row" justifyContent="center" alignItems="center">
-      <Text pl={3} color="white">
-        Foody App
-      </Text>
+  <Router>
+    <Flex
+      bg="tomato"
+      w="100%"
+      px={5}
+      py={4}
+      justifyContent="space-between"
+      alignItems="center"
+    >
+      <Flex flexDirection="row" justifyContent="center" alignItems="center">
+        <Text pl={3} color="white">
+          <Link to="/">Foody App</Link>
+        </Text>
+      </Flex>
+      <Box>
+        {menus.map((menu) => (
+          <Navlink key={menus.indexOf(menu)} path={menu.toLowerCase()}>
+            {menu}
+          </Navlink>
+        ))}
+      </Box>
     </Flex>
-    <Box>
-      {menus.map((menu) => (
-        <Navlink key={menus.indexOf(menu)}>{menu}</Navlink>
-      ))}
-    </Box>
-  </Flex>
+    <Switch>
+      <Route exact path="/sign-up" component={Signup} />
+      <Route exact path="/sign-in" component={Signin} />
+    </Switch>
+  </Router>
 );
 
 export default Navbar;

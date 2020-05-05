@@ -25,7 +25,7 @@ const initialValues = {
 
 // const onSubmit = ;
 
-const validationSchema = Yup.object().shape({
+const validationSchema = Yup.object({
   name: Yup.string()
     .max(50, 'Name should not be more than 50 character long!')
     .required("Name can't be empty!"),

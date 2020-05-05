@@ -20,7 +20,7 @@ const Navbar = () => (
     </Flex>
     <Box>
       {menus.map((menu) => (
-        <Navlink>{menu}</Navlink>
+        <Navlink key={menus.indexOf(menu)}>{menu}</Navlink>
       ))}
     </Box>
   </Flex>

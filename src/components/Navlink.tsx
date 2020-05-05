@@ -5,8 +5,8 @@ import { Link } from '@chakra-ui/core';
 interface Navprops {
   children: string;
 }
-const Navlink = ({ children, ...props }: Navprops) => (
-  <Link px={2} color="white" {...props}>
+const Navlink = ({ children }: Navprops) => (
+  <Link href="_" px={2} color="white">
     {children}
   </Link>
 );

@@ -23,8 +23,6 @@ const initialValues = {
   passwordConfirmation: '',
 };
 
-// const onSubmit = ;
-
 const validationSchema = Yup.object({
   name: Yup.string()
     .max(50, 'Name should not be more than 50 character long!')
@@ -136,7 +134,7 @@ const Signup = () => {
             </FormErrorMessage>
           </FormControl>
           <Button mt={4} variantColor="teal" type="submit">
-            Submit
+            Create account
           </Button>
         </form>
       </Box>

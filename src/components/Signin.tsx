@@ -13,9 +13,10 @@ import {
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 import { SignInProps } from '../interfaces/formInterfaces';
 
-const initialValues = {
+const initialValues: SignInProps = {
   email: '',
   password: '',
 };
@@ -31,6 +32,7 @@ const validationSchema = Yup.object({
 
 const Signin = () => {
   const toast = useToast();
+  const history = useHistory();
   const form = useFormik({
     initialValues,
     onSubmit: (values: SignInProps) => {
@@ -43,6 +45,7 @@ const Signin = () => {
         duration: 2000,
         isClosable: true,
       });
+      history.push('/');
     },
     validationSchema,
   });

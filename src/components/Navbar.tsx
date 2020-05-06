@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Text } from '@chakra-ui/core';
+import { Box, Flex, Heading } from '@chakra-ui/core';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Navlink from './Navlink';
 import Signup from './Signup';
@@ -18,9 +18,9 @@ const Navbar = () => (
       alignItems="center"
     >
       <Flex flexDirection="row" justifyContent="center" alignItems="center">
-        <Text pl={3} color="white">
+        <Heading as="h1" pl={3} color="white">
           <Link to="/">Foody App</Link>
-        </Text>
+        </Heading>
       </Flex>
       <Box>
         {menus.map((menu) => (

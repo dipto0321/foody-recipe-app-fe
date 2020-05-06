@@ -9,9 +9,17 @@ interface Navprops {
 }
 
 const Navlink = ({ children, path }: Navprops) => (
-  /*
-  // @ts-ignore */
-  <Link as={ReactRouterLink} to={`/${path}`} px={2} color="white">
+  <Link
+    /*
+// @ts-ignore */
+    as={ReactRouterLink}
+    to={`/${path}`}
+    px={2}
+    color="white"
+    _focus={{
+      outline: 'none',
+    }}
+  >
     {children}
   </Link>
 );

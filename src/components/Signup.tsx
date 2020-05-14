@@ -16,6 +16,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
 import { SignUpProps } from '../interfaces/formInterfaces';
+import serverAPI from '../apis/baseApi';
 
 const initialValues: SignUpProps = {
   name: '',
@@ -45,17 +46,29 @@ const Signup = () => {
   const history = useHistory();
   const form = useFormik({
     initialValues,
-    onSubmit: (values: SignUpProps) => {
-      console.log('values:', values);
-      toast({
-        position: 'top',
-        title: 'Account created.',
-        description: "We've created your account for you.",
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-      });
-      history.push('/sign-in');
+    onSubmit: async (values: SignUpProps) => {
+      try {
+        const response = await serverAPI.post('/user/create/', values);
+        const { data } = response;
+        toast({
+          position: 'top',
+          title: `Hola! ${data.name}`,
+          description: "We've created your account for you.",
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+        history.push('/sign-in');
+      } catch (error) {
+        toast({
+          position: 'top',
+          title: `Opps! Something is wrong!`,
+          description: error.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
     },
     validationSchema,
   });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Heading,
@@ -42,12 +42,14 @@ const validationSchema = Yup.object({
 });
 
 const Signup = () => {
+  const [loadState, setLoadState] = useState(false);
   const toast = useToast();
   const history = useHistory();
   const form = useFormik({
     initialValues,
     onSubmit: async (values: SignUpProps) => {
       try {
+        setLoadState(true);
         const response = await serverAPI.post('/user/create/', values);
         const { data } = response;
         toast({
@@ -68,6 +70,7 @@ const Signup = () => {
           duration: 5000,
           isClosable: true,
         });
+        setLoadState(false);
       }
     },
     validationSchema,
@@ -149,7 +152,12 @@ const Signup = () => {
               {form.errors.passwordConfirmation}
             </FormErrorMessage>
           </FormControl>
-          <Button mt={4} variantColor="teal" type="submit">
+          <Button
+            mt={4}
+            variantColor="teal"
+            type="submit"
+            isLoading={loadState}
+          >
             Create account
           </Button>
         </form>

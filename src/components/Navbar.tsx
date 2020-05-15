@@ -19,7 +19,7 @@ const Navbar = () => (
     >
       <Flex flexDirection="row" justifyContent="center" alignItems="center">
         <Heading as="h1" pl={3} color="white">
-          <Link to="/">Foody App</Link>
+          <Link to="/">Foody Recipe App</Link>
         </Heading>
       </Flex>
       <Box>

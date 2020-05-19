@@ -17,6 +17,7 @@ import { useHistory } from 'react-router-dom';
 import { SignInProps } from '../interfaces/formInterfaces';
 import serverAPI from '../apis/baseApi';
 import { setItem } from '../utils/sessionStorage';
+import { configData, paths } from '../utils/configs';
 
 const initialValues: SignInProps = {
   email: '',
@@ -41,9 +42,9 @@ const Signin = () => {
     onSubmit: async (values: SignInProps) => {
       try {
         setLoadState(true);
-        const response = await serverAPI.post('/user/token/', values);
+        const response = await serverAPI.post(paths.signInPath, values);
         const { data } = response;
-        setItem('_access_tokens', { ...data });
+        setItem(configData.accessTokenKeyName, { ...data });
         toast({
           position: 'top',
           title: 'Welcome to foody Recipe App!',

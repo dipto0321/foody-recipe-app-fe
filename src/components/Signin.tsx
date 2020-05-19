@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Heading,
@@ -15,6 +15,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
 import { SignInProps } from '../interfaces/formInterfaces';
+import serverAPI from '../apis/baseApi';
+import { setItem } from '../utils/sessionStorage';
 
 const initialValues: SignInProps = {
   email: '',
@@ -31,21 +33,37 @@ const validationSchema = Yup.object({
 });
 
 const Signin = () => {
+  const [loadState, setLoadState] = useState(false);
   const toast = useToast();
   const history = useHistory();
   const form = useFormik({
     initialValues,
-    onSubmit: (values: SignInProps) => {
-      console.log('sign in values:', values);
-      toast({
-        position: 'top',
-        title: 'Login Success',
-        description: "We've created your token for you.",
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-      });
-      history.push('/');
+    onSubmit: async (values: SignInProps) => {
+      try {
+        setLoadState(true);
+        const response = await serverAPI.post('/user/token/', values);
+        const { data } = response;
+        setItem('_access_tokens', { ...data });
+        toast({
+          position: 'top',
+          title: 'Welcome to foody Recipe App!',
+          description: "You've logged in successfully",
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+        history.push('/');
+      } catch (error) {
+        toast({
+          position: 'top',
+          title: `Opps! Something is wrong!`,
+          description: error.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+        setLoadState(false);
+      }
     },
     validationSchema,
   });
@@ -86,7 +104,12 @@ const Signin = () => {
             />
             <FormErrorMessage>{form.errors.password}</FormErrorMessage>
           </FormControl>
-          <Button mt={4} variantColor="teal" type="submit">
+          <Button
+            mt={4}
+            variantColor="teal"
+            type="submit"
+            isLoading={loadState}
+          >
             Sign in
           </Button>
         </form>

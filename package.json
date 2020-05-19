@@ -16,6 +16,7 @@
     "axios": "^0.19.2",
     "emotion-theming": "^10.0.27",
     "formik": "^2.1.4",
+    "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
@@ -47,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.151",
     "@types/react-router-dom": "^5.1.5",
     "@types/yup": "^0.28.3",
     "@typescript-eslint/eslint-plugin": "^2.34.0",

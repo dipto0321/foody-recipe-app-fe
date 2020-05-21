@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Heading,
@@ -14,9 +14,12 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
-import { SignInProps } from '../interfaces/formInterfaces';
+import { SignIn, SignInProps } from '../interfaces/formInterfaces';
+import serverAPI from '../apis/baseApi';
+import { setItem, getItem } from '../utils/sessionStorage';
+import { configData, paths } from '../utils/configs';
 
-const initialValues: SignInProps = {
+const initialValues: SignIn = {
   email: '',
   password: '',
 };
@@ -30,22 +33,39 @@ const validationSchema = Yup.object({
     .required('No password provided.'),
 });
 
-const Signin = () => {
+const Signin = ({ handleAccessData }: SignInProps) => {
+  const [loadState, setLoadState] = useState(false);
   const toast = useToast();
   const history = useHistory();
   const form = useFormik({
     initialValues,
-    onSubmit: (values: SignInProps) => {
-      console.log('sign in values:', values);
-      toast({
-        position: 'top',
-        title: 'Login Success',
-        description: "We've created your token for you.",
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-      });
-      history.push('/');
+    onSubmit: async (values: SignIn) => {
+      try {
+        setLoadState(true);
+        const response = await serverAPI.post(paths.signInPath, values);
+        const { data } = response;
+        setItem(configData.accessTokenKeyName, { ...data });
+        toast({
+          position: 'top',
+          title: 'Welcome to foody Recipe App!',
+          description: "You've logged in successfully",
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+        handleAccessData(getItem(configData.accessTokenKeyName));
+        history.push('/me');
+      } catch (error) {
+        toast({
+          position: 'top',
+          title: `Opps! Something is wrong!`,
+          description: error.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+        setLoadState(false);
+      }
     },
     validationSchema,
   });
@@ -58,7 +78,7 @@ const Signin = () => {
         <form onSubmit={form.handleSubmit}>
           <FormControl
             isRequired
-            isInvalid={form.touched.email && Boolean(form.values.email)}
+            isInvalid={form.touched.email && Boolean(form.errors.email)}
           >
             <FormLabel htmlFor="email">E-mail</FormLabel>
             <Input
@@ -86,7 +106,12 @@ const Signin = () => {
             />
             <FormErrorMessage>{form.errors.password}</FormErrorMessage>
           </FormControl>
-          <Button mt={4} variantColor="teal" type="submit">
+          <Button
+            mt={4}
+            variantColor="teal"
+            type="submit"
+            isLoading={loadState}
+          >
             Sign in
           </Button>
         </form>

@@ -5,7 +5,11 @@ export interface SignUpProps {
   passwordConfirmation: string;
 }
 
-export interface SignInProps {
+export interface SignIn {
   email: string;
   password: string;
+}
+
+export interface SignInProps {
+  handleAccessData: Function;
 }

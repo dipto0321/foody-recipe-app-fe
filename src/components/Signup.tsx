@@ -35,10 +35,9 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .min(8, 'Password is too short - should be 8 chars minimum.')
     .required('No password provided.'),
-  passwordConfirmation: Yup.string().oneOf(
-    [Yup.ref('password')],
-    'Password not matched!'
-  ),
+  passwordConfirmation: Yup.string()
+    .oneOf([Yup.ref('password')], 'Password not matched!')
+    .required('No password confirmation provided.'),
 });
 
 const Signup = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider, CSSReset } from '@chakra-ui/core';
-import Navbar from './Navbar';
+import Navbar from './Header/Navbar';
 
 const App = () => {
   return (

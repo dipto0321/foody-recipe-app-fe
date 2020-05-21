@@ -77,7 +77,7 @@ const Signin = () => {
         <form onSubmit={form.handleSubmit}>
           <FormControl
             isRequired
-            isInvalid={form.touched.email && Boolean(form.values.email)}
+            isInvalid={form.touched.email && Boolean(form.errors.email)}
           >
             <FormLabel htmlFor="email">E-mail</FormLabel>
             <Input

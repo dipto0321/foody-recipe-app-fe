@@ -16,6 +16,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
 import { SignUpProps } from '../../interfaces/signup';
+import { endPointPaths, menuNames } from '../../utils/configs';
 import serverAPI from '../../apis/baseApi';
 
 const initialValues: SignUpProps = {
@@ -49,7 +50,7 @@ const Signup = () => {
     onSubmit: async (values: SignUpProps) => {
       try {
         setLoadState(true);
-        const response = await serverAPI.post('/user/create/', values);
+        const response = await serverAPI.post(endPointPaths.signUpPath, values);
         const { data } = response;
         toast({
           position: 'top',
@@ -59,7 +60,7 @@ const Signup = () => {
           duration: 2000,
           isClosable: true,
         });
-        history.push('/sign-in');
+        history.push(`/${menuNames.signIn}`);
       } catch (error) {
         toast({
           position: 'top',

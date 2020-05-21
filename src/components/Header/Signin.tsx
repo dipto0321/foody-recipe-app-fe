@@ -17,7 +17,7 @@ import { useHistory } from 'react-router-dom';
 import { SignIn, SignInProps } from '../../interfaces/signin';
 import serverAPI from '../../apis/baseApi';
 import { setItem } from '../../utils/sessionStorage';
-import { configData, paths } from '../../utils/configs';
+import { configData, endPointPaths, menuNames } from '../../utils/configs';
 
 const initialValues: SignIn = {
   email: '',
@@ -42,7 +42,7 @@ const Signin = ({ handleAccessData }: SignInProps) => {
     onSubmit: async (values: SignIn) => {
       try {
         setLoadState(true);
-        const response = await serverAPI.post(paths.signInPath, values);
+        const response = await serverAPI.post(endPointPaths.signInPath, values);
         const { data } = response;
         setItem(configData.accessTokenKeyName, { ...data });
         toast({
@@ -54,7 +54,7 @@ const Signin = ({ handleAccessData }: SignInProps) => {
           isClosable: true,
         });
         handleAccessData();
-        history.push('/me');
+        history.push(`/${menuNames.dash}`);
       } catch (error) {
         toast({
           position: 'top',

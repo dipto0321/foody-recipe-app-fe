@@ -7,10 +7,10 @@ import Signup from './Signup';
 import Signin from './Signin';
 import Signout from './Signout';
 import { getItem } from '../../utils/sessionStorage';
-import { configData } from '../../utils/configs';
+import { configData, menuNames } from '../../utils/configs';
 
-const menusWithoutSigned = ['Sign-in', 'Sign-up'];
-const menusWithSigned = ['Me', 'Recipes', 'Sign-out'];
+const menusInitial = [menuNames.signIn, menuNames.signUp];
+const menusForLoggedIn = [menuNames.dash, menuNames.profile, menuNames.signOut];
 
 const Navbar = () => {
   const [accessData, setAccessData] = useState(
@@ -19,16 +19,13 @@ const Navbar = () => {
 
   const renderMenus = () => {
     const isLoggedIn = _.isEmpty(accessData);
+    let menus = [...menusInitial];
     if (!isLoggedIn) {
-      return menusWithSigned.map((menu) => (
-        <Navlink key={menusWithSigned.indexOf(menu)} path={menu.toLowerCase()}>
-          {menu}
-        </Navlink>
-      ));
+      menus = [...menusForLoggedIn];
     }
-    return menusWithoutSigned.map((menu) => (
-      <Navlink key={menusWithoutSigned.indexOf(menu)} path={menu.toLowerCase()}>
-        {menu}
+    return menus.map((menu) => (
+      <Navlink key={menus.indexOf(menu)} path={menu}>
+        {menu.toUpperCase()}
       </Navlink>
     ));
   };

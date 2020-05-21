@@ -2,7 +2,12 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Box, Button, Text, useToast } from '@chakra-ui/core';
 import serverAPI from '../../apis/baseApi';
-import { configData, paths } from '../../utils/configs';
+import {
+  configData,
+  endPointPaths,
+  menuNames,
+  rootPath,
+} from '../../utils/configs';
 import { removeItem } from '../../utils/sessionStorage';
 import { SignOutProps } from '../../interfaces/signout';
 
@@ -12,7 +17,7 @@ const Signout = ({ accessData, handleAccessData }: SignOutProps) => {
   const history = useHistory();
   const handleYesClick = async () => {
     try {
-      await serverAPI.post(paths.refreshTokenPath, { refresh });
+      await serverAPI.post(endPointPaths.refreshTokenPath, { refresh });
       removeItem(configData.accessTokenKeyName);
       handleAccessData();
       toast({
@@ -23,7 +28,7 @@ const Signout = ({ accessData, handleAccessData }: SignOutProps) => {
         duration: 2000,
         isClosable: true,
       });
-      history.push('/');
+      history.push(rootPath);
     } catch (error) {
       toast({
         position: 'top',
@@ -37,7 +42,7 @@ const Signout = ({ accessData, handleAccessData }: SignOutProps) => {
   };
 
   const handleNoClick = () => {
-    history.push('/me');
+    history.push(`/${menuNames.dash}`);
   };
 
   return (

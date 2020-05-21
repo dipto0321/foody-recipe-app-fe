@@ -5,6 +5,7 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
+  FormHelperText,
   Divider,
   Input,
   Button,
@@ -14,47 +15,51 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
-import { SignIn, SignInProps } from '../interfaces/formInterfaces';
-import serverAPI from '../apis/baseApi';
-import { setItem, getItem } from '../utils/sessionStorage';
-import { configData, paths } from '../utils/configs';
+import { SignUpProps } from '../../interfaces/signup';
+import serverAPI from '../../apis/baseApi';
 
-const initialValues: SignIn = {
+const initialValues: SignUpProps = {
+  name: '',
   email: '',
   password: '',
+  passwordConfirmation: '',
 };
 
 const validationSchema = Yup.object({
+  name: Yup.string()
+    .max(50, 'Name should not be more than 50 character long!')
+    .required("Name can't be empty!"),
   email: Yup.string()
     .email('Invalid email address!')
     .required("Email can't be empty!"),
   password: Yup.string()
     .min(8, 'Password is too short - should be 8 chars minimum.')
     .required('No password provided.'),
+  passwordConfirmation: Yup.string()
+    .oneOf([Yup.ref('password')], 'Password not matched!')
+    .required('No password confirmation provided.'),
 });
 
-const Signin = ({ handleAccessData }: SignInProps) => {
+const Signup = () => {
   const [loadState, setLoadState] = useState(false);
   const toast = useToast();
   const history = useHistory();
   const form = useFormik({
     initialValues,
-    onSubmit: async (values: SignIn) => {
+    onSubmit: async (values: SignUpProps) => {
       try {
         setLoadState(true);
-        const response = await serverAPI.post(paths.signInPath, values);
+        const response = await serverAPI.post('/user/create/', values);
         const { data } = response;
-        setItem(configData.accessTokenKeyName, { ...data });
         toast({
           position: 'top',
-          title: 'Welcome to foody Recipe App!',
-          description: "You've logged in successfully",
+          title: `Hola! ${data.name}`,
+          description: "We've created your account for you.",
           status: 'success',
           duration: 2000,
           isClosable: true,
         });
-        handleAccessData(getItem(configData.accessTokenKeyName));
-        history.push('/me');
+        history.push('/sign-in');
       } catch (error) {
         toast({
           position: 'top',
@@ -69,13 +74,27 @@ const Signin = ({ handleAccessData }: SignInProps) => {
     },
     validationSchema,
   });
-
   return (
     <Box w="50%" mx="auto">
-      <Heading as="h1">Sign in</Heading>
+      <Heading as="h1">Join in</Heading>
       <Divider />
       <Box p={6}>
         <form onSubmit={form.handleSubmit}>
+          <FormControl
+            isRequired
+            isInvalid={form.touched.name && Boolean(form.errors.name)}
+          >
+            <FormLabel htmlFor="name">Name</FormLabel>
+            <Input
+              type="text"
+              id="name"
+              name="name"
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              value={form.values.name}
+            />
+            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+          </FormControl>
           <FormControl
             isRequired
             isInvalid={form.touched.email && Boolean(form.errors.email)}
@@ -88,7 +107,11 @@ const Signin = ({ handleAccessData }: SignInProps) => {
               onChange={form.handleChange}
               onBlur={form.handleBlur}
               value={form.values.email}
+              aria-describedby="email-helper-text"
             />
+            <FormHelperText id="email-helper-text">
+              We will never share your email.
+            </FormHelperText>
             <FormErrorMessage>{form.errors.email}</FormErrorMessage>
           </FormControl>
           <FormControl
@@ -106,13 +129,35 @@ const Signin = ({ handleAccessData }: SignInProps) => {
             />
             <FormErrorMessage>{form.errors.password}</FormErrorMessage>
           </FormControl>
+          <FormControl
+            isRequired
+            isInvalid={
+              form.touched.passwordConfirmation &&
+              Boolean(form.errors.passwordConfirmation)
+            }
+          >
+            <FormLabel htmlFor="passwordConfirmation">
+              Password confirmation
+            </FormLabel>
+            <Input
+              type="password"
+              id="passwordConfirmation"
+              name="passwordConfirmation"
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              value={form.values.passwordConfirmation}
+            />
+            <FormErrorMessage>
+              {form.errors.passwordConfirmation}
+            </FormErrorMessage>
+          </FormControl>
           <Button
             mt={4}
             variantColor="teal"
             type="submit"
             isLoading={loadState}
           >
-            Sign in
+            Create account
           </Button>
         </form>
       </Box>
@@ -120,4 +165,4 @@ const Signin = ({ handleAccessData }: SignInProps) => {
   );
 };
 
-export default Signin;
+export default Signup;

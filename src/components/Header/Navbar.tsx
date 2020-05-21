@@ -5,8 +5,9 @@ import _ from 'lodash';
 import Navlink from './Navlink';
 import Signup from './Signup';
 import Signin from './Signin';
-import { getItem } from '../utils/sessionStorage';
-import { configData } from '../utils/configs';
+import Signout from './Signout';
+import { getItem } from '../../utils/sessionStorage';
+import { configData } from '../../utils/configs';
 
 const menusWithoutSigned = ['Sign-in', 'Sign-up'];
 const menusWithSigned = ['Me', 'Recipes', 'Sign-out'];
@@ -32,6 +33,10 @@ const Navbar = () => {
     ));
   };
 
+  const handleAccessData = () => {
+    setAccessData(getItem(configData.accessTokenKeyName));
+  };
+
   return (
     <Router>
       <Flex
@@ -54,11 +59,15 @@ const Navbar = () => {
         <Route
           exact
           path="/sign-in"
+          render={() => <Signin handleAccessData={handleAccessData} />}
+        />
+        <Route
+          exact
+          path="/sign-out"
           render={() => (
-            <Signin
-              handleAccessData={(value: object) => {
-                setAccessData(value);
-              }}
+            <Signout
+              accessData={accessData}
+              handleAccessData={handleAccessData}
             />
           )}
         />

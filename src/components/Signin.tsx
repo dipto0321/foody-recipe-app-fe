@@ -14,12 +14,12 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
-import { SignInProps } from '../interfaces/formInterfaces';
+import { SignIn, SignInProps } from '../interfaces/formInterfaces';
 import serverAPI from '../apis/baseApi';
-import { setItem } from '../utils/sessionStorage';
+import { setItem, getItem } from '../utils/sessionStorage';
 import { configData, paths } from '../utils/configs';
 
-const initialValues: SignInProps = {
+const initialValues: SignIn = {
   email: '',
   password: '',
 };
@@ -33,13 +33,13 @@ const validationSchema = Yup.object({
     .required('No password provided.'),
 });
 
-const Signin = () => {
+const Signin = ({ handleAccessData }: SignInProps) => {
   const [loadState, setLoadState] = useState(false);
   const toast = useToast();
   const history = useHistory();
   const form = useFormik({
     initialValues,
-    onSubmit: async (values: SignInProps) => {
+    onSubmit: async (values: SignIn) => {
       try {
         setLoadState(true);
         const response = await serverAPI.post(paths.signInPath, values);
@@ -53,7 +53,8 @@ const Signin = () => {
           duration: 2000,
           isClosable: true,
         });
-        history.push('/');
+        handleAccessData(getItem(configData.accessTokenKeyName));
+        history.push('/me');
       } catch (error) {
         toast({
           position: 'top',

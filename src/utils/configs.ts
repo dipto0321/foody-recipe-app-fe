@@ -5,4 +5,5 @@ export const configData = {
 export const paths = {
   signUpPath: '/user/create/',
   signInPath: '/user/token/',
+  refreshTokenPath: '/user/token/refresh/',
 };

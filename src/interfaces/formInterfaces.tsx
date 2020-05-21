@@ -10,6 +10,7 @@ export interface SignIn {
   password: string;
 }
 
+type HandleAccessDataType = (value: object) => void;
 export interface SignInProps {
-  handleAccessData: Function;
+  handleAccessData: HandleAccessDataType;
 }

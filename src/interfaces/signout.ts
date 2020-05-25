@@ -1,4 +1,4 @@
-import { HandleAccessDataType, AccessDataObject } from '../@types/common';
+import { HandleAccessDataType, AccessDataObject } from '../types/common';
 
 export interface SignOutProps {
   accessData: AccessDataObject;

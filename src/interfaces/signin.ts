@@ -1,4 +1,4 @@
-import { HandleAccessDataType } from '../@types/common';
+import { HandleAccessDataType } from '../types/common';
 
 export interface SignIn {
   email: string;

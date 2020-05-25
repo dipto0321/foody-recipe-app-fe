@@ -5,6 +5,7 @@ import _ from 'lodash';
 import Navlink from './Navlink';
 import Signup from './Signup';
 import Signin from './Signin';
+import Profile from '../Profile';
 import Signout from './Signout';
 import { getItem } from '../../utils/sessionStorage';
 import { configData, menuNames } from '../../utils/configs';
@@ -57,6 +58,11 @@ const Navbar = () => {
           exact
           path="/sign-in"
           render={() => <Signin handleAccessData={handleAccessData} />}
+        />
+        <Route
+          exact
+          path="/profile"
+          render={() => <Profile accessData={accessData} />}
         />
         <Route
           exact

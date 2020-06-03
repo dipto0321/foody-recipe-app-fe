@@ -62,7 +62,12 @@ const Navbar = () => {
         <Route
           exact
           path="/profile"
-          render={() => <Profile accessData={accessData} />}
+          render={() => (
+            <Profile
+              accessData={accessData}
+              handleAccessData={handleAccessData}
+            />
+          )}
         />
         <Route
           exact

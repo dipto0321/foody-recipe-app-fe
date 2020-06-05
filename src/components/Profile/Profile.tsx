@@ -8,28 +8,21 @@ import {
   Heading,
   Divider,
   Stack,
-  Modal,
-  ModalHeader,
   useToast,
-  useDisclosure,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalFooter,
 } from '@chakra-ui/core';
 import { useHistory } from 'react-router-dom';
-import { ProfileProps } from '../interfaces/profile';
-import getGravatar from '../utils/gravatar';
-import { configData, endPointPaths, menuNames } from '../utils/configs';
-import serverAPI from '../apis/baseApi';
-import { removeItem } from '../utils/sessionStorage';
+import { ProfileProps } from '../../interfaces/profile';
+import getGravatar from '../../utils/gravatar';
+import { configData, endPointPaths, menuNames } from '../../utils/configs';
+import serverAPI from '../../apis/baseApi';
+import { removeItem } from '../../utils/sessionStorage';
+import Delete from './Delete';
 
 const Profile = ({ accessData, handleAccessData }: ProfileProps) => {
   const initialValues = { name: '', email: '', avaterUrl: '' };
   const [profileData, setProfileData] = useState(initialValues);
   const toast = useToast();
   const history = useHistory();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const handleGetProfileData = async () => {
     try {
       const response = await serverAPI.get(endPointPaths.profilePath, {
@@ -65,7 +58,7 @@ const Profile = ({ accessData, handleAccessData }: ProfileProps) => {
       toast({
         position: 'top',
         title: `Opps! Something is wrong!`,
-        description: error.message,
+        description: error.code,
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -117,41 +110,8 @@ const Profile = ({ accessData, handleAccessData }: ProfileProps) => {
             <Button rightIcon="edit" variantColor="yellow" variant="solid">
               Edit
             </Button>
-            <Button
-              rightIcon="delete"
-              variantColor="red"
-              variant="solid"
-              onClick={onOpen}
-            >
-              Delete
-            </Button>
+            <Delete userName={profileData.name} handleDelete={handleDelete} />
           </ButtonGroup>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>{`Delete ${profileData.name} account`}</ModalHeader>
-              <ModalBody>
-                Are you sure you want to leave for ever :( ?
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  variantColor="teal"
-                  variant="outline"
-                  mr={3}
-                  onClick={onClose}
-                >
-                  Nope
-                </Button>
-                <Button
-                  variantColor="red"
-                  variant="outline"
-                  onClick={handleDelete}
-                >
-                  Yeah!
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
         </Box>
       </Box>
     </Stack>

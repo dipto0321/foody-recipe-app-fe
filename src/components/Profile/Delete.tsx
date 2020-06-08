@@ -12,7 +12,7 @@ import {
 
 import { DeleteProps } from '../../interfaces/profile';
 
-const Delete = ({ userName, handleDelete }: DeleteProps) => {
+const Delete = ({ userName, handleDelete }: DeleteProps): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>

@@ -14,6 +14,7 @@ export const endPointPaths = {
   signUpPath: '/user/create/',
   signInPath: '/user/token/',
   refreshTokenPath: '/user/token/refresh/',
+  profilePath: '/user/me/',
 };
 
 export const rootPath = '/';

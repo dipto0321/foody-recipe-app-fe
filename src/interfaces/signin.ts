@@ -1,4 +1,4 @@
-import { HandleAccessDataType } from '../types/common';
+import { HandleCommonFunc } from '../types/common';
 
 export interface SignIn {
   email: string;
@@ -6,5 +6,5 @@ export interface SignIn {
 }
 
 export interface SignInProps {
-  handleAccessData: HandleAccessDataType;
+  handleAccessData: HandleCommonFunc;
 }

@@ -4,7 +4,6 @@ import {
   Avatar,
   Text,
   ButtonGroup,
-  Button,
   Heading,
   Divider,
   Stack,
@@ -12,14 +11,19 @@ import {
 } from '@chakra-ui/core';
 import { useHistory } from 'react-router-dom';
 import { ProfileProps } from '../../interfaces/profile';
-import getGravatar from '../../utils/gravatar';
+import { ProfileDataObject } from '../../types/common';
 import { configData, endPointPaths, menuNames } from '../../utils/configs';
+import getGravatar from '../../utils/gravatar';
 import serverAPI from '../../apis/baseApi';
 import { removeItem } from '../../utils/sessionStorage';
 import Delete from './Delete';
+import Update from './Update';
 
-const Profile = ({ accessData, handleAccessData }: ProfileProps) => {
-  const initialValues = { name: '', email: '', avaterUrl: '' };
+const Profile = ({
+  accessData,
+  handleAccessData,
+}: ProfileProps): JSX.Element => {
+  const initialValues = { name: '', email: '', avatarUrl: '' };
   const [profileData, setProfileData] = useState(initialValues);
   const toast = useToast();
   const history = useHistory();
@@ -31,7 +35,7 @@ const Profile = ({ accessData, handleAccessData }: ProfileProps) => {
         },
       });
       const { data } = response;
-      setProfileData({ ...data, avaterUrl: getGravatar(data.email, 250) });
+      setProfileData({ ...data, avatarUrl: getGravatar(data.email) });
     } catch (error) {
       toast({
         position: 'top',
@@ -66,6 +70,41 @@ const Profile = ({ accessData, handleAccessData }: ProfileProps) => {
     }
   };
 
+  const handleUpdate = async (proData: ProfileDataObject) => {
+    try {
+      const response = await serverAPI.patch(
+        endPointPaths.profilePath,
+        {
+          name: proData.name,
+          email: proData.email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessData.access}`,
+          },
+        }
+      );
+      const { data } = response;
+      setProfileData({ ...data, avatarUrl: getGravatar(data.email) });
+      toast({
+        position: 'top',
+        title: 'Update profile information',
+        description: 'Update operation successful!',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        position: 'top',
+        title: `Opps! Something is wrong!`,
+        description: error.code,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
   useEffect(() => {
     handleGetProfileData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,7 +131,7 @@ const Profile = ({ accessData, handleAccessData }: ProfileProps) => {
         <Avatar
           size="2xl"
           name={profileData.name}
-          src={profileData.avaterUrl}
+          src={profileData.avatarUrl}
           m={5}
         />
         <Box>
@@ -107,9 +146,7 @@ const Profile = ({ accessData, handleAccessData }: ProfileProps) => {
           </Text>
           <Text color="#2980b9">{profileData.email}</Text>
           <ButtonGroup spacing={2} mt={2}>
-            <Button rightIcon="edit" variantColor="yellow" variant="solid">
-              Edit
-            </Button>
+            <Update profileData={profileData} handleUpdate={handleUpdate} />
             <Delete userName={profileData.name} handleDelete={handleDelete} />
           </ButtonGroup>
         </Box>

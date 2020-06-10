@@ -1,15 +1,21 @@
 import {
   AccessDataObject,
-  HandleAccessDataType,
-  HandleDeleteFunc,
+  HandleCommonFunc,
+  ProfileDataObject,
+  HandleUpdateProfileWithArgsFunc,
 } from '../types/common';
 
 export interface ProfileProps {
   accessData: AccessDataObject;
-  handleAccessData: HandleAccessDataType;
+  handleAccessData: HandleCommonFunc;
 }
 
 export interface DeleteProps {
   userName: string;
-  handleDelete: HandleDeleteFunc;
+  handleDelete: HandleCommonFunc;
+}
+
+export interface UpdateProps {
+  profileData: ProfileDataObject;
+  handleUpdate: HandleUpdateProfileWithArgsFunc;
 }

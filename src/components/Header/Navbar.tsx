@@ -13,7 +13,7 @@ import { configData, menuNames } from '../../utils/configs';
 const menusInitial = [menuNames.signIn, menuNames.signUp];
 const menusForLoggedIn = [menuNames.dash, menuNames.profile, menuNames.signOut];
 
-const Navbar = () => {
+const Navbar = (): JSX.Element => {
   const [accessData, setAccessData] = useState(
     getItem(configData.accessTokenKeyName)
   );

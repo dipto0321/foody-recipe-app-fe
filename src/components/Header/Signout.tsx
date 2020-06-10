@@ -11,7 +11,10 @@ import {
 import { removeItem } from '../../utils/sessionStorage';
 import { SignOutProps } from '../../interfaces/signout';
 
-const Signout = ({ accessData, handleAccessData }: SignOutProps) => {
+const Signout = ({
+  accessData,
+  handleAccessData,
+}: SignOutProps): JSX.Element => {
   const { refresh } = accessData;
   const toast = useToast();
   const history = useHistory();

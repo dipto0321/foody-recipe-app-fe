@@ -4,7 +4,7 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 import { Link } from '@chakra-ui/core';
 import { NavLinkProps } from '../../interfaces/navlink';
 
-const Navlink = ({ children, path }: NavLinkProps) => (
+const Navlink = ({ children, path }: NavLinkProps): JSX.Element => (
   <Link
     /*
 // @ts-ignore */

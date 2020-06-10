@@ -56,7 +56,7 @@ const Navbar = (): JSX.Element => {
         <Route exact path="/sign-up" render={() => <Signup />} />
         <Route
           exact
-          path="/sign-in"
+          path={['/', '/sign-in']}
           render={() => <Signin handleAccessData={handleAccessData} />}
         />
         <Route

@@ -33,7 +33,7 @@ const validationSchema = Yup.object({
     .required('No password provided.'),
 });
 
-const Signin = ({ handleAccessData }: SignInProps) => {
+const Signin = ({ handleAccessData }: SignInProps): JSX.Element => {
   const [loadState, setLoadState] = useState(false);
   const toast = useToast();
   const history = useHistory();

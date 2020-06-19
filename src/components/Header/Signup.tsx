@@ -41,7 +41,7 @@ const validationSchema = Yup.object({
     .required('No password confirmation provided.'),
 });
 
-const Signup = () => {
+const Signup = (): JSX.Element => {
   const [loadState, setLoadState] = useState(false);
   const toast = useToast();
   const history = useHistory();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Divider, Heading, Stack } from '@chakra-ui/core';
 import RecipeInsert from './RecipeInsert';
 
@@ -9,6 +9,7 @@ const Dashboard = (): JSX.Element => {
       <Divider />
       <RecipeInsert />
       <Box mt={2}>Body</Box>
+      <p>Pagination</p>
     </Stack>
   );
 };

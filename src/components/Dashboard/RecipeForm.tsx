@@ -4,7 +4,7 @@ import {
   FormLabel,
   FormErrorMessage,
   Input,
-  Select,
+  Select as ChakraSelect,
   Stack,
   NumberInput,
   NumberInputField,
@@ -15,6 +15,11 @@ import {
 } from '@chakra-ui/core';
 
 const RecipeForm = (): JSX.Element => {
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
   return (
     <form>
       <Stack>
@@ -24,7 +29,7 @@ const RecipeForm = (): JSX.Element => {
         </FormControl>
         <FormControl isRequired>
           <FormLabel htmlFor="ingredients">Ingredients</FormLabel>
-          <Select
+          <ChakraSelect
             placeholder="Select Ingredients"
             name="ingredients"
             id="ingredients"
@@ -32,15 +37,19 @@ const RecipeForm = (): JSX.Element => {
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>
             <option value="option3">Option 3</option>
-          </Select>
+          </ChakraSelect>
         </FormControl>
         <FormControl isRequired>
           <FormLabel htmlFor="tags">Tags</FormLabel>
-          <Select placeholder="Select Tags" name="tags" id="tags">
+          <ChakraSelect
+            placeholder="Select Ingredients"
+            name="ingredients"
+            id="ingredients"
+          >
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>
             <option value="option3">Option 3</option>
-          </Select>
+          </ChakraSelect>
         </FormControl>
         <FormControl isRequired>
           <FormLabel htmlFor="price">Price in USD</FormLabel>

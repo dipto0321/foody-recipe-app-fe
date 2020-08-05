@@ -10,9 +10,7 @@ const menusForLoggedIn = [menuNames.dash, menuNames.profile, menuNames.signOut];
 
 const Navbar = (): JSX.Element => {
   const { Title } = Typography;
-  const [accessData, setAccessData] = useState(
-    getItem(configData.accessTokenKeyName)
-  );
+  const [accessData] = useState(getItem(configData.accessTokenKeyName));
 
   const renderMenus = () => {
     const isLoggedIn = _.isEmpty(accessData);

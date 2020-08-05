@@ -1,15 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Box, Button, Text, useToast } from '@chakra-ui/core';
-import serverAPI from '../../apis/baseApi';
+import serverAPI from '../apis/baseApi';
 import {
   configData,
   endPointPaths,
   menuNames,
   rootPath,
-} from '../../utils/configs';
-import { removeItem } from '../../utils/sessionStorage';
-import { SignOutProps } from '../../interfaces/signout';
+} from '../utils/configs';
+import { removeItem } from '../utils/sessionStorage';
+import { SignOutProps } from '../interfaces/signout';
 
 const Signout = ({
   accessData,

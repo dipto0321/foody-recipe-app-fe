@@ -15,9 +15,9 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
-import { SignUpProps } from '../../interfaces/signup';
-import { endPointPaths, menuNames } from '../../utils/configs';
-import serverAPI from '../../apis/baseApi';
+import { SignUpProps } from '../interfaces/signup';
+import { endPointPaths, menuNames } from '../utils/configs';
+import serverAPI from '../apis/baseApi';
 
 const initialValues: SignUpProps = {
   name: '',

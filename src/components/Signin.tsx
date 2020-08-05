@@ -14,10 +14,10 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
-import { SignIn, SignInProps } from '../../interfaces/signin';
-import serverAPI from '../../apis/baseApi';
-import { setItem } from '../../utils/sessionStorage';
-import { configData, endPointPaths, menuNames } from '../../utils/configs';
+import { SignIn, SignInProps } from '../interfaces/signin';
+import serverAPI from '../apis/baseApi';
+import { setItem } from '../utils/sessionStorage';
+import { configData, endPointPaths, menuNames } from '../utils/configs';
 
 const initialValues: SignIn = {
   email: '',

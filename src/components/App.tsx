@@ -14,7 +14,7 @@ const App = (): JSX.Element => {
         <Header style={{ background: 'transparent' }}>
           <Navbar />
         </Header>
-        <Content style={{ padding: '0 50px' }}>
+        <Content>
           <Routes />
         </Content>
         <Footer

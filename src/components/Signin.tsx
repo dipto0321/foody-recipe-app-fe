@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Form, Input, Button, Typography, Divider, notification } from 'antd';
-import { MailOutlined, LockOutlined } from '@ant-design/icons';
+import { MailTwoTone, LockTwoTone } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import { SignIn, SignInProps } from '../interfaces/signin';
 import serverAPI from '../apis/baseApi';
@@ -27,7 +27,7 @@ const Signin = ({ handleAccessData }: SignInProps): JSX.Element => {
       notification.success({
         message: 'Welcome to foody Recipe App!',
         description: "You've logged in successfully",
-        placement: 'bottomLeft',
+        placement: 'bottomRight',
       });
       handleAccessData();
       history.push(`/${menuNames.dash}`);
@@ -35,7 +35,7 @@ const Signin = ({ handleAccessData }: SignInProps): JSX.Element => {
       notification.error({
         message: 'Opps! Something is wrong!',
         description: error.message,
-        placement: 'bottomLeft',
+        placement: 'bottomRight',
       });
       setloading(false);
     }
@@ -45,11 +45,7 @@ const Signin = ({ handleAccessData }: SignInProps): JSX.Element => {
     <div style={{ maxWidth: '50%', margin: '0 auto' }}>
       <Title style={{ textAlign: 'center' }}>Sign in</Title>
       <Divider />
-      <Form
-        name="normal_login"
-        initialValues={initialValues}
-        onFinish={onFinish}
-      >
+      <Form name="login" initialValues={initialValues} onFinish={onFinish}>
         <Form.Item
           name="email"
           rules={[
@@ -63,13 +59,19 @@ const Signin = ({ handleAccessData }: SignInProps): JSX.Element => {
             },
           ]}
         >
-          <Input prefix={<MailOutlined />} placeholder="Email" />
+          <Input
+            prefix={<MailTwoTone twoToneColor="#e67e22" />}
+            placeholder="Email"
+          />
         </Form.Item>
         <Form.Item
           name="password"
           rules={[{ required: true, message: 'Please input your Password!' }]}
         >
-          <Input.Password prefix={<LockOutlined />} placeholder="Password" />
+          <Input.Password
+            prefix={<LockTwoTone twoToneColor="#e67e22" />}
+            placeholder="Password"
+          />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>

@@ -1,19 +1,6 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Heading,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Divider,
-  Input,
-  Button,
-  useToast,
-} from '@chakra-ui/core';
-
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import { Button, Form, Input, Divider, Typography, notification } from 'antd';
+import { UserOutlined, MailTwoTone, LockTwoTone } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import { SignUpProps } from '../interfaces/signup';
 import { endPointPaths, menuNames } from '../utils/configs';
@@ -26,143 +13,118 @@ const initialValues: SignUpProps = {
   passwordConfirmation: '',
 };
 
-const validationSchema = Yup.object({
-  name: Yup.string()
-    .max(50, 'Name should not be more than 50 character long!')
-    .required("Name can't be empty!"),
-  email: Yup.string()
-    .email('Invalid email address!')
-    .required("Email can't be empty!"),
-  password: Yup.string()
-    .min(8, 'Password is too short - should be 8 chars minimum.')
-    .required('No password provided.'),
-  passwordConfirmation: Yup.string()
-    .oneOf([Yup.ref('password')], 'Password not matched!')
-    .required('No password confirmation provided.'),
-});
-
 const Signup = (): JSX.Element => {
   const [loadState, setLoadState] = useState(false);
-  const toast = useToast();
+  const { Title } = Typography;
   const history = useHistory();
-  const form = useFormik({
-    initialValues,
-    onSubmit: async (values: SignUpProps) => {
-      try {
-        setLoadState(true);
-        const response = await serverAPI.post(endPointPaths.signUpPath, values);
-        const { data } = response;
-        toast({
-          position: 'top',
-          title: `Hola! ${data.name}`,
-          description: "We've created your account for you.",
-          status: 'success',
-          duration: 2000,
-          isClosable: true,
-        });
-        history.push(`/${menuNames.signIn}`);
-      } catch (error) {
-        toast({
-          position: 'top',
-          title: `Opps! Something is wrong!`,
-          description: error.message,
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-        });
-        setLoadState(false);
-      }
-    },
-    validationSchema,
-  });
+  const onFinish = async (values: any) => {
+    try {
+      setLoadState(true);
+      const response = await serverAPI.post(endPointPaths.signUpPath, values);
+      const { data } = response;
+      notification.success({
+        message: `Hola! ${data.name}`,
+        description: "We've created your account for you.",
+        placement: 'bottomRight',
+      });
+      history.push(`/${menuNames.signIn}`);
+    } catch (error) {
+      notification.error({
+        message: `Opps! Something is wrong!`,
+        description: error.message,
+        placement: 'bottomRight',
+      });
+      setLoadState(false);
+    }
+  };
+
   return (
-    <Box w="50%" mx="auto">
-      <Heading as="h1">Join in</Heading>
+    <div style={{ maxWidth: '50%', margin: '0 auto' }}>
+      <Title style={{ textAlign: 'center' }}>Join in</Title>
       <Divider />
-      <Box p={6}>
-        <form onSubmit={form.handleSubmit}>
-          <FormControl
-            isRequired
-            isInvalid={form.touched.name && Boolean(form.errors.name)}
-          >
-            <FormLabel htmlFor="name">Name</FormLabel>
-            <Input
-              type="text"
-              id="name"
-              name="name"
-              onChange={form.handleChange}
-              onBlur={form.handleBlur}
-              value={form.values.name}
-            />
-            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-          </FormControl>
-          <FormControl
-            isRequired
-            isInvalid={form.touched.email && Boolean(form.errors.email)}
-          >
-            <FormLabel htmlFor="email">E-mail</FormLabel>
-            <Input
-              type="email"
-              id="email"
-              name="email"
-              onChange={form.handleChange}
-              onBlur={form.handleBlur}
-              value={form.values.email}
-              aria-describedby="email-helper-text"
-            />
-            <FormHelperText id="email-helper-text">
-              We will never share your email.
-            </FormHelperText>
-            <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-          </FormControl>
-          <FormControl
-            isRequired
-            isInvalid={form.touched.password && Boolean(form.errors.password)}
-          >
-            <FormLabel htmlFor="password">Password</FormLabel>
-            <Input
-              type="password"
-              id="password"
-              name="password"
-              onChange={form.handleChange}
-              onBlur={form.handleBlur}
-              value={form.values.password}
-            />
-            <FormErrorMessage>{form.errors.password}</FormErrorMessage>
-          </FormControl>
-          <FormControl
-            isRequired
-            isInvalid={
-              form.touched.passwordConfirmation &&
-              Boolean(form.errors.passwordConfirmation)
-            }
-          >
-            <FormLabel htmlFor="passwordConfirmation">
-              Password confirmation
-            </FormLabel>
-            <Input
-              type="password"
-              id="passwordConfirmation"
-              name="passwordConfirmation"
-              onChange={form.handleChange}
-              onBlur={form.handleBlur}
-              value={form.values.passwordConfirmation}
-            />
-            <FormErrorMessage>
-              {form.errors.passwordConfirmation}
-            </FormErrorMessage>
-          </FormControl>
-          <Button
-            mt={4}
-            variantColor="teal"
-            type="submit"
-            isLoading={loadState}
-          >
-            Create account
+      <Form name="register" initialValues={initialValues} onFinish={onFinish}>
+        <Form.Item
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your Name!',
+              whitespace: true,
+            },
+          ]}
+        >
+          <Input
+            prefix={<UserOutlined style={{ color: '#e67e22' }} />}
+            placeholder="Name"
+          />
+        </Form.Item>
+        <Form.Item
+          name="email"
+          rules={[
+            {
+              type: 'email',
+              message: 'The input is not valid E-mail!',
+            },
+            {
+              required: true,
+              message: 'Please input your E-mail!',
+            },
+          ]}
+        >
+          <Input
+            prefix={<MailTwoTone twoToneColor="#e67e22" />}
+            placeholder="Email"
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your password!',
+            },
+          ]}
+          hasFeedback
+        >
+          <Input.Password
+            prefix={<LockTwoTone twoToneColor="#e67e22" />}
+            placeholder="Password"
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="confirm"
+          dependencies={['password']}
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              message: 'Please confirm your password!',
+            },
+            ({ getFieldValue }) => ({
+              validator(rule, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  new Error('The two passwords that you entered do not match!')
+                );
+              },
+            }),
+          ]}
+        >
+          <Input.Password
+            prefix={<LockTwoTone twoToneColor="#e67e22" />}
+            placeholder="Confirm Password"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={loadState}>
+            Register
           </Button>
-        </form>
-      </Box>
-    </Box>
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
 

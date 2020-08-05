@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box, Button, Text, useToast } from '@chakra-ui/core';
+import { Button, Card, Space, Typography, notification } from 'antd';
 import serverAPI from '../apis/baseApi';
 import {
   configData,
@@ -15,31 +15,25 @@ const Signout = ({
   accessData,
   handleAccessData,
 }: SignOutProps): JSX.Element => {
+  const { Text } = Typography;
   const { refresh } = accessData;
-  const toast = useToast();
   const history = useHistory();
   const handleYesClick = async () => {
     try {
       await serverAPI.post(endPointPaths.refreshTokenPath, { refresh });
       removeItem(configData.accessTokenKeyName);
       handleAccessData();
-      toast({
-        position: 'top',
-        title: `Sign out Success!`,
+      notification.success({
+        message: `Sign out Success!`,
         description: 'Bye Bye, See u again!',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
+        placement: 'bottomRight',
       });
       history.push(rootPath);
     } catch (error) {
-      toast({
-        position: 'top',
-        title: `Opps! Something is wrong!`,
+      notification.error({
+        message: `Opps! Something is wrong!`,
         description: error.message,
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
+        placement: 'bottomRight',
       });
     }
   };
@@ -49,29 +43,17 @@ const Signout = ({
   };
 
   return (
-    <Box
-      maxW="sm"
-      borderWidth="1px"
-      rounded="lg"
-      overflow="hidden"
-      p={5}
-      mx="auto"
-      my="15%"
-    >
-      <Box my="2" lineHeight="tight" textAlign="center">
-        <Text fontSize="xl" fontWeight="semibold">
-          Are you want to leave?
-        </Text>
-      </Box>
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <Button mr={2} variantColor="red" onClick={handleYesClick}>
+    <Card title="Leave" style={{ width: 300, margin: '10px auto' }}>
+      <Text>Are you want to leave?</Text>
+      <Space>
+        <Button type="primary" danger onClick={handleYesClick}>
           Yes
         </Button>
-        <Button ml={2} variantColor="teal" onClick={handleNoClick}>
+        <Button type="primary" onClick={handleNoClick}>
           No
         </Button>
-      </Box>
-    </Box>
+      </Space>
+    </Card>
   );
 };
 

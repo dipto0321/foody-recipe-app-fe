@@ -7,6 +7,7 @@ import Signup from './Signup';
 import Signin from './Signin';
 import Profile from '../Profile/Profile';
 import Signout from './Signout';
+import Dashboard from '../Dashboard/Dashboard';
 import { getItem } from '../../utils/sessionStorage';
 import { configData, menuNames } from '../../utils/configs';
 
@@ -56,7 +57,7 @@ const Navbar = (): JSX.Element => {
         <Route exact path="/sign-up" render={() => <Signup />} />
         <Route
           exact
-          path={['/', '/sign-in']}
+          path="/sign-in"
           render={() => <Signin handleAccessData={handleAccessData} />}
         />
         <Route
@@ -79,6 +80,7 @@ const Navbar = (): JSX.Element => {
             />
           )}
         />
+        <Route exact path="/dashboard" render={() => <Dashboard />} />
       </Switch>
     </Router>
   );

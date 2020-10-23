@@ -1,10 +1,10 @@
-export const setItem = (key: string, value: object) => {
-  sessionStorage.setItem(key, JSON.stringify(value));
+export const setItem = (key: string, value: string): void => {
+  sessionStorage.setItem(key, value);
 };
 
-export const getItem = (key: string) =>
-  JSON.parse(sessionStorage.getItem(key) || '{}');
+export const getItem = (key: string): string =>
+  JSON.parse(sessionStorage.getItem(key) || '');
 
-export const removeItem = (key: string) => {
+export const removeItem = (key: string): void => {
   sessionStorage.removeItem(key);
 };

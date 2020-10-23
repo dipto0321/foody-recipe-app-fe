@@ -1,7 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Card, Space, Typography, notification } from 'antd';
-import serverAPI from '../apis/baseApi';
+import serverAPI from '../configs/api/server';
+
 import {
   configData,
   endPointPaths,
@@ -9,20 +10,17 @@ import {
   rootPath,
 } from '../utils/configs';
 import { removeItem } from '../utils/sessionStorage';
-import { SignOutProps } from '../interfaces/signout';
+import { SignOutProps } from '../configs/types/auth';
 
-const Signout = ({
-  accessData,
-  handleAccessData,
-}: SignOutProps): JSX.Element => {
+const Signout = (): JSX.Element => {
   const { Text } = Typography;
-  const { refresh } = accessData;
+  // const { refresh } = accessData;
   const history = useHistory();
   const handleYesClick = async () => {
     try {
-      await serverAPI.post(endPointPaths.refreshTokenPath, { refresh });
+      await serverAPI.post(endPointPaths.refreshTokenPath);
       removeItem(configData.accessTokenKeyName);
-      handleAccessData();
+      // handleAccessData();
       notification.success({
         message: `Sign out Success!`,
         description: 'Bye Bye, See u again!',

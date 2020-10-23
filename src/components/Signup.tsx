@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Divider, Typography, notification } from 'antd';
 import { UserOutlined, MailTwoTone, LockTwoTone } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-import { SignUpProps } from '../interfaces/signup';
+import { SignUpProps } from '../configs/types/auth';
 import { endPointPaths, menuNames } from '../utils/configs';
-import serverAPI from '../apis/baseApi';
+import serverAPI from '../configs/api/server';
 
 const initialValues: SignUpProps = {
   name: '',
@@ -18,9 +18,11 @@ const Signup = (): JSX.Element => {
   const { Title } = Typography;
   const history = useHistory();
   const onFinish = async (values: any) => {
+    console.log('onFinish -> values', values);
     try {
       setLoadState(true);
       const response = await serverAPI.post(endPointPaths.signUpPath, values);
+      console.log('onFinish -> response', response);
       const { data } = response;
       notification.success({
         message: `Hola! ${data.name}`,

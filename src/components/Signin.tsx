@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Typography, Divider, notification } from 'antd';
 import { MailTwoTone, LockTwoTone } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-import { SignIn, SignInProps } from '../interfaces/signin';
-import serverAPI from '../apis/baseApi';
+import { SignIn, SignInProps } from '../configs/types/auth';
+import serverAPI from '../configs/api/server';
 import { setItem } from '../utils/sessionStorage';
 import { configData, endPointPaths, menuNames } from '../utils/configs';
 
@@ -13,7 +13,7 @@ const initialValues: SignIn = {
   password: '',
 };
 
-const Signin = ({ handleAccessData }: SignInProps): JSX.Element => {
+const Signin = (): JSX.Element => {
   const [loading, setloading] = useState(false);
   const history = useHistory();
   const { Title } = Typography;
@@ -29,7 +29,7 @@ const Signin = ({ handleAccessData }: SignInProps): JSX.Element => {
         description: "You've logged in successfully",
         placement: 'bottomRight',
       });
-      handleAccessData();
+      // handleAccessData();
       history.push(`/${menuNames.dash}`);
     } catch (error) {
       notification.error({

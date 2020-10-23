@@ -3,10 +3,9 @@ import {
   HandleCommonFunc,
   ProfileDataObject,
   HandleUpdateProfileWithArgsFunc,
-} from '../types/common';
+} from './common';
 
 export interface ProfileProps {
-  accessData: AccessDataObject;
   handleAccessData: HandleCommonFunc;
 }
 

@@ -2,42 +2,39 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Divider, Typography, notification } from 'antd';
 import { UserOutlined, MailTwoTone, LockTwoTone } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-import { SignUpProps } from '../configs/types/auth';
-import { endPointPaths, menuNames } from '../utils/configs';
-import serverAPI from '../configs/api/server';
+import { SignUp } from '../configs/types/auth';
+import { signUp } from '../services/auth';
+// import { menuNames } from '../utils/configs';
 
-const initialValues: SignUpProps = {
+const initialValues: SignUp = {
   name: '',
   email: '',
   password: '',
-  passwordConfirmation: '',
+  confirm: '',
 };
 
 const Signup = (): JSX.Element => {
   const [loadState, setLoadState] = useState(false);
   const { Title } = Typography;
   const history = useHistory();
-  const onFinish = async (values: any) => {
-    console.log('onFinish -> values', values);
+  const onFinish = async (values: SignUp) => {
+    setLoadState(true);
     try {
-      setLoadState(true);
-      const response = await serverAPI.post(endPointPaths.signUpPath, values);
-      console.log('onFinish -> response', response);
-      const { data } = response;
+      const { data } = await signUp(values);
       notification.success({
         message: `Hola! ${data.name}`,
         description: "We've created your account for you.",
         placement: 'bottomRight',
       });
-      history.push(`/${menuNames.signIn}`);
+      // history.push(`/${menuNames.signIn}`);
     } catch (error) {
       notification.error({
         message: `Opps! Something is wrong!`,
         description: error.message,
         placement: 'bottomRight',
       });
-      setLoadState(false);
     }
+    setLoadState(false);
   };
 
   return (

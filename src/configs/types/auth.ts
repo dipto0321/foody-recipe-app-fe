@@ -9,13 +9,22 @@ export interface SignInProps {
   handleAccessData: HandleCommonFunc;
 }
 
-export interface SignUpProps {
+export interface SignUp {
   name: string;
   email: string;
   password: string;
-  passwordConfirmation: string;
+  confirm: string;
 }
 
-export interface SignOutProps {
-  handleAccessData: HandleCommonFunc;
+export interface SignUpData {
+  data: {
+    name: string;
+    email: string;
+  };
+}
+export interface SignInData {
+  data: {
+    access: string;
+    refresh: string;
+  };
 }

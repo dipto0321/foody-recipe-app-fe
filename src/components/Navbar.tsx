@@ -5,6 +5,8 @@ import _ from 'lodash';
 
 import { menuNames } from '../configs/common';
 
+import '../styles/Navbar.less';
+
 const menusInitial = [menuNames.signIn, menuNames.signUp];
 const menusForLoggedIn = [menuNames.dash, menuNames.profile, menuNames.signOut];
 
@@ -27,13 +29,13 @@ const Navbar = (): JSX.Element => {
 
   return (
     <>
-      <Title className="logo">Foody Recipe App</Title>
+      <Title className="nav__logo">Foody</Title>
       <Menu
+        className="nav__menu"
         mode="horizontal"
         selectedKeys={[
           menus.indexOf(location.pathname.replace('/', '')).toString(),
         ]}
-        style={{ float: 'right' }}
       >
         {renderMenus()}
       </Menu>

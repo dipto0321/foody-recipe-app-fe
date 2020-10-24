@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom';
 import { SignIn } from '../configs/types/auth';
 import { signIn } from '../services/auth';
 
+import '../styles/SignIn.less';
+
 const initialValues: SignIn = {
   email: '',
   password: '',
@@ -39,10 +41,15 @@ const Signin = (): JSX.Element => {
   };
 
   return (
-    <div style={{ maxWidth: '50%', margin: '0 auto' }}>
-      <Title style={{ textAlign: 'center' }}>Sign in</Title>
+    <div className="signin">
+      <Title className="signin__title">Enter In</Title>
       <Divider />
-      <Form name="login" initialValues={initialValues} onFinish={onFinish}>
+      <Form
+        className="signin__form"
+        name="login"
+        initialValues={initialValues}
+        onFinish={onFinish}
+      >
         <Form.Item
           name="email"
           rules={[
@@ -71,8 +78,14 @@ const Signin = (): JSX.Element => {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={loading}>
-            Sign in
+          <Button
+            className="signin__form--btn"
+            type="primary"
+            htmlType="submit"
+            loading={loading}
+            size="large"
+          >
+            Enter
           </Button>
         </Form.Item>
       </Form>

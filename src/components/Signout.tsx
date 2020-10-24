@@ -3,14 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { Button, Card, Space, Typography, notification } from 'antd';
 import serverAPI from '../configs/api/server';
 
-import {
-  configData,
-  endPointPaths,
-  menuNames,
-  rootPath,
-} from '../utils/configs';
-import { removeItem } from '../utils/sessionStorage';
-import { SignOutProps } from '../configs/types/auth';
+import { tokensKey, menuNames, rootPath } from '../configs/common';
+// import { removeItem } from '../utils/sessionStorage';
+// import { SignOutProps } from '../configs/types/auth';
 
 const Signout = (): JSX.Element => {
   const { Text } = Typography;
@@ -18,15 +13,15 @@ const Signout = (): JSX.Element => {
   const history = useHistory();
   const handleYesClick = async () => {
     try {
-      await serverAPI.post(endPointPaths.refreshTokenPath);
-      removeItem(configData.accessTokenKeyName);
-      // handleAccessData();
-      notification.success({
-        message: `Sign out Success!`,
-        description: 'Bye Bye, See u again!',
-        placement: 'bottomRight',
-      });
-      history.push(rootPath);
+      // await serverAPI.post(endPointPaths.refreshTokenPath);
+      // removeItem(configData.accessTokenKeyName);
+      // // handleAccessData();
+      // notification.success({
+      //   message: `Sign out Success!`,
+      //   description: 'Bye Bye, See u again!',
+      //   placement: 'bottomRight',
+      // });
+      // history.push(rootPath);
     } catch (error) {
       notification.error({
         message: `Opps! Something is wrong!`,
@@ -37,7 +32,7 @@ const Signout = (): JSX.Element => {
   };
 
   const handleNoClick = () => {
-    history.push(`/${menuNames.dash}`);
+    // history.push(`/${menuNames.dash}`);
   };
 
   return (

@@ -3,7 +3,7 @@ import { Menu, Typography } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import _ from 'lodash';
 
-import { menuNames } from '../utils/configs';
+import { menuNames } from '../configs/common';
 
 const menusInitial = [menuNames.signIn, menuNames.signUp];
 const menusForLoggedIn = [menuNames.dash, menuNames.profile, menuNames.signOut];

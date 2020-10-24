@@ -3,10 +3,8 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Typography, Divider, notification } from 'antd';
 import { MailTwoTone, LockTwoTone } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-import { SignIn, SignInProps } from '../configs/types/auth';
-import serverAPI from '../configs/api/server';
-import { setItem } from '../utils/sessionStorage';
-import { configData, endPointPaths, menuNames } from '../utils/configs';
+import { SignIn } from '../configs/types/auth';
+import { signIn } from '../services/auth';
 
 const initialValues: SignIn = {
   email: '',
@@ -18,19 +16,18 @@ const Signin = (): JSX.Element => {
   const history = useHistory();
   const { Title } = Typography;
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: SignIn) => {
     try {
       setloading(true);
-      const response = await serverAPI.post(endPointPaths.signInPath, values);
-      const { data } = response;
-      setItem(configData.accessTokenKeyName, { ...data });
+      const { data } = await signIn(values);
+      // setItem(configData.accessTokenKeyName, { ...data });
       notification.success({
         message: 'Welcome to foody Recipe App!',
         description: "You've logged in successfully",
         placement: 'bottomRight',
       });
       // handleAccessData();
-      history.push(`/${menuNames.dash}`);
+      // history.push(`/${menuNames.dash}`);
     } catch (error) {
       notification.error({
         message: 'Opps! Something is wrong!',

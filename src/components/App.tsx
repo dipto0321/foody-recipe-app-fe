@@ -9,25 +9,15 @@ const App = (): JSX.Element => {
   const { Header, Content, Footer } = Layout;
 
   return (
-    <Layout style={{ background: 'transparent' }}>
+    <Layout className="app">
       <Router>
-        <Header style={{ background: 'transparent' }}>
+        <Header className="app__header">
           <Navbar />
         </Header>
-        <Content>
+        <Content className="app__content">
           <Routes />
         </Content>
-        <Footer
-          style={{
-            textAlign: 'center',
-            position: 'fixed',
-            left: 0,
-            bottom: 0,
-            width: '100%',
-          }}
-        >
-          Foody App © 2020
-        </Footer>
+        <Footer className="app__footer">Foody App © 2020</Footer>
       </Router>
     </Layout>
   );

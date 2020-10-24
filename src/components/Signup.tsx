@@ -6,6 +6,8 @@ import { SignUp } from '../configs/types/auth';
 import { signUp } from '../services/auth';
 // import { menuNames } from '../utils/configs';
 
+import '../styles/SignUp.less';
+
 const initialValues: SignUp = {
   name: '',
   email: '',
@@ -38,10 +40,15 @@ const Signup = (): JSX.Element => {
   };
 
   return (
-    <div style={{ maxWidth: '50%', margin: '0 auto' }}>
-      <Title style={{ textAlign: 'center' }}>Join in</Title>
+    <div className="signup">
+      <Title className="signup__title">Join Us</Title>
       <Divider />
-      <Form name="register" initialValues={initialValues} onFinish={onFinish}>
+      <Form
+        className="signup__form"
+        name="register"
+        initialValues={initialValues}
+        onFinish={onFinish}
+      >
         <Form.Item
           name="name"
           rules={[
@@ -118,7 +125,13 @@ const Signup = (): JSX.Element => {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={loadState}>
+          <Button
+            className="signup__form--btn"
+            type="primary"
+            htmlType="submit"
+            loading={loadState}
+            size="large"
+          >
             Register
           </Button>
         </Form.Item>

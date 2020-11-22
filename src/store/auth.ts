@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { apiCallBegan } from './api';
-import { SignIn } from '../configs/types/auth';
+import { SignIn, SignUp } from '../configs/types/auth';
 
 const slice = createSlice({
   name: 'auth',
@@ -10,28 +10,35 @@ const slice = createSlice({
     loading: false,
   },
   reducers: {
-    authRequested: (auth, action) => {
+    authLoginRequested: (auth, action) => {
       auth.loading = true;
     },
-    authSuccess: (auth, action) => {
+    authLoginSuccess: (auth, action) => {
       auth.isAuthenticated = true;
       auth.loading = false;
     },
-    authRemove: (auth, action) => {
+    authLoginFailed: (auth, action) => {
+      auth.loading = false;
+    },
+    authLoggedOut: (auth, action) => {
       auth.isAuthenticated = false;
     },
-    authRequestFailed: (auth, action) => {
-      auth.isAuthenticated = false;
+    authSignUpRequested: (auth, action) => {
+      auth.loading = true;
+    },
+    authSignUpSuccess: (auth, action) => {
       auth.loading = false;
     },
   },
 });
 
 export const {
-  authRequested,
-  authSuccess,
-  authRemove,
-  authRequestFailed,
+  authLoggedOut,
+  authLoginRequested,
+  authSignUpRequested,
+  authLoginSuccess,
+  authSignUpSuccess,
+  authLoginFailed,
 } = slice.actions;
 export default slice.reducer;
 
@@ -43,7 +50,7 @@ export const login = (user: SignIn) =>
     url: `${url}/token/`,
     method: 'post',
     data: user,
-    onStart: authRequested.type,
-    onSuccess: authSuccess.type,
-    onError: authRequestFailed.type,
+    onStart: authLoginRequested.type,
+    onSuccess: authLoginSuccess.type,
+    onError: authLoginFailed.type,
   });

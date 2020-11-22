@@ -54,3 +54,12 @@ export const login = (user: SignIn) =>
     onSuccess: authLoginSuccess.type,
     onError: authLoginFailed.type,
   });
+
+export const signUp = (data: SignUp) =>
+  apiCallBegan({
+    url: `${url}/create/`,
+    method: 'post',
+    data,
+    onStart: authSignUpRequested.type,
+    onSuccess: authSignUpSuccess.type,
+  });

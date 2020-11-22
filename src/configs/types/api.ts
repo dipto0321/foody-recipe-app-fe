@@ -22,7 +22,7 @@ export interface CreateAction {
   data: any;
   onStart: string;
   onSuccess: string;
-  onError: string;
+  onError?: string;
 }
 
 export type NextFn = (arg0: any) => void;

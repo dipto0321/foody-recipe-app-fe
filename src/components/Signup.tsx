@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import { Button, Form, Input, Divider, Typography, notification } from 'antd';
 import { UserOutlined, MailTwoTone, LockTwoTone } from '@ant-design/icons';
-import { useHistory } from 'react-router-dom';
 import { SignUp } from '../configs/types/auth';
-import { signUp } from '../services/auth';
-// import { menuNames } from '../utils/configs';
+import { signUp } from '../store/auth';
+import { menuNames } from '../configs/common';
 
 import '../styles/SignUp.less';
 
@@ -16,19 +18,22 @@ const initialValues: SignUp = {
 };
 
 const Signup = (): JSX.Element => {
-  const [loadState, setLoadState] = useState(false);
   const { Title } = Typography;
   const history = useHistory();
+  const dispatch = useDispatch();
+  const loading = useSelector(
+    (state: RootStateOrAny) => state.entities.auth.loading
+  );
+
   const onFinish = async (values: SignUp) => {
-    setLoadState(true);
     try {
-      const { data } = await signUp(values);
+      dispatch(signUp(values));
       notification.success({
-        message: `Hola! ${data.name}`,
+        message: `Hola! ${values.name}`,
         description: "We've created your account for you.",
         placement: 'bottomRight',
       });
-      // history.push(`/${menuNames.signIn}`);
+      history.push(`/${menuNames.signIn}`);
     } catch (error) {
       notification.error({
         message: `Opps! Something is wrong!`,
@@ -36,7 +41,6 @@ const Signup = (): JSX.Element => {
         placement: 'bottomRight',
       });
     }
-    setLoadState(false);
   };
 
   return (
@@ -129,7 +133,7 @@ const Signup = (): JSX.Element => {
             className="signup__form--btn"
             type="primary"
             htmlType="submit"
-            loading={loadState}
+            loading={loading}
             size="large"
           >
             Register

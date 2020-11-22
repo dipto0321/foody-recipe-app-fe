@@ -1,5 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const apiCallBegan = createAction('api/callBegan');
-export const apiCallSuccess = createAction('api/callSuccess');
-export const apiCallFailed = createAction('api/callFailed');
+import { CreateAction } from '../configs/types/api';
+
+export const apiCallBegan = createAction<CreateAction>('api/callBegan');
+export const apiCallSuccess = createAction<CreateAction>('api/callSuccess');
+export const apiCallFailed = createAction<CreateAction>('api/callFailed');

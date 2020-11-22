@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Form, Input, Button, Typography, Divider, notification } from 'antd';
 import { MailTwoTone, LockTwoTone } from '@ant-design/icons';
-import { useHistory } from 'react-router-dom';
 import { SignIn } from '../configs/types/auth';
 import { signIn } from '../services/auth';
+import { login } from '../store/auth';
 
 import '../styles/SignIn.less';
 
@@ -16,27 +17,24 @@ const initialValues: SignIn = {
 const Signin = (): JSX.Element => {
   const [loading, setloading] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootStateOrAny) => state.entities.auth);
   const { Title } = Typography;
 
   const onFinish = async (values: SignIn) => {
     try {
-      setloading(true);
-      const { data } = await signIn(values);
-      // setItem(configData.accessTokenKeyName, { ...data });
+      dispatch(login(values));
       notification.success({
         message: 'Welcome to foody Recipe App!',
         description: "You've logged in successfully",
         placement: 'bottomRight',
       });
-      // handleAccessData();
-      // history.push(`/${menuNames.dash}`);
     } catch (error) {
       notification.error({
         message: 'Opps! Something is wrong!',
         description: error.message,
         placement: 'bottomRight',
       });
-      setloading(false);
     }
   };
 
@@ -82,7 +80,7 @@ const Signin = (): JSX.Element => {
             className="signin__form--btn"
             type="primary"
             htmlType="submit"
-            loading={loading}
+            loading={user.loading}
             size="large"
           >
             Enter

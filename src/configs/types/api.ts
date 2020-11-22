@@ -10,10 +10,19 @@ export interface ApiAction {
     url: string;
     method: any;
     data: any;
-    onStart: boolean;
-    onSuccess: boolean;
-    onError: boolean;
+    onStart: string;
+    onSuccess: string;
+    onError: string;
   };
+}
+
+export interface CreateAction {
+  url: string;
+  method: any;
+  data: any;
+  onStart: string;
+  onSuccess: string;
+  onError: string;
 }
 
 export type NextFn = (arg0: any) => void;

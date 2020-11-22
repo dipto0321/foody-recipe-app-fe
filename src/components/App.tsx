@@ -1,8 +1,11 @@
 import React from 'react';
-import { Layout } from 'antd';
 import { BrowserRouter as Router } from 'react-router-dom';
+
+import { Layout } from 'antd';
+
 import Navbar from './Navbar';
 import Routes from '../routes';
+
 import '../styles/App.less';
 
 const App = (): JSX.Element => {

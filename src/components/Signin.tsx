@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Form, Input, Button, Typography, Divider, notification } from 'antd';
 import { MailTwoTone, LockTwoTone } from '@ant-design/icons';
 import { SignIn } from '../configs/types/auth';
-import { signIn } from '../services/auth';
 import { login } from '../store/auth';
 
 import '../styles/SignIn.less';
@@ -15,7 +14,6 @@ const initialValues: SignIn = {
 };
 
 const Signin = (): JSX.Element => {
-  const [loading, setloading] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state: RootStateOrAny) => state.entities.auth);

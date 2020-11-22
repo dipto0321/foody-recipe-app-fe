@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Menu, Typography } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { useSelector, RootStateOrAny } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import _ from 'lodash';
+import { Menu, Typography } from 'antd';
 
 import { menuNames } from '../configs/common';
 
@@ -12,20 +12,17 @@ const menusForLoggedIn = [menuNames.dash, menuNames.profile, menuNames.signOut];
 
 const Navbar = (): JSX.Element => {
   const location = useLocation();
+  const isAuthenticated = useSelector(
+    (state: RootStateOrAny) => state.entities.auth.isAuthenticated
+  );
   const { Title } = Typography;
   const [menus, setMenus] = useState([...menusInitial]);
 
-  const renderMenus = () => {
-    const isLoggedIn = _.isEmpty({});
-    if (!isLoggedIn) {
+  useEffect(() => {
+    if (isAuthenticated) {
       setMenus([...menusForLoggedIn]);
     }
-    return menus.map((menu) => (
-      <Menu.Item key={menus.indexOf(menu)}>
-        <Link to={`/${menu}`}>{menu.toUpperCase()}</Link>
-      </Menu.Item>
-    ));
-  };
+  }, [isAuthenticated]);
 
   return (
     <>
@@ -37,7 +34,11 @@ const Navbar = (): JSX.Element => {
           menus.indexOf(location.pathname.replace('/', '')).toString(),
         ]}
       >
-        {renderMenus()}
+        {menus.map((menu) => (
+          <Menu.Item key={menus.indexOf(menu)}>
+            <Link to={`/${menu}`}>{menu.toUpperCase()}</Link>
+          </Menu.Item>
+        ))}
       </Menu>
     </>
   );

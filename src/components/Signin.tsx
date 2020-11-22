@@ -22,6 +22,7 @@ const Signin = (): JSX.Element => {
   const onFinish = async (values: SignIn) => {
     try {
       dispatch(login(values));
+      history.push('/profile');
       notification.success({
         message: 'Welcome to foody Recipe App!',
         description: "You've logged in successfully",
